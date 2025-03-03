@@ -19,44 +19,60 @@
 # Change the file extension to match the format (.xml for XML, etc...)
 #
 ###
-title: "TODO - Your title"
-abbrev: "TODO - Abbreviation"
-category: info
+title: "CBOR Encoding for HTTPS-based Transport for YANG Notifications"
+abbrev: "https-notif-ext-cbor"
+category: Proposed Standard 
 
-docname: draft-todo-yourname-protocol-latest
+docname: draft-chittapragada-netconf-https-notif-cbor-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
 consensus: true
 v: 3
-area: AREA
-workgroup: WG Working Group
+area: Network Configuration Protocol
+workgroup: NETCONF Working Group
 keyword:
- - next generation
- - unicorn
- - sparkling distributed ledger
+ - cbor
+ - https
 venue:
   group: WG
   type: Working Group
   mail: WG@example.com
   arch: https://example.com/WG
-  github: USER/REPO
+  github: meherrushi/draft-chittapragada-netconf-https-notif-cbor
   latest: https://example.com/LATEST
 
 author:
  -
-    fullname: Your Name Here
-    organization: Your Organization Here
-    email: your.email@example.com
+    fullname: Bharadwaja Meherrushi Chittapragada
+    organization: National Institute of Technology Karnataka, Surathkal
+    email: meherrushi2@gmail.com
+ -
+    fullname: Siddharth Bhat
+    organization: National Institute of Technology Karnataka, Surathkal
+    email: siddharth.bhat10@gmail.com
+ -
+    fullname: Vartika T Rao
+    organization: National Institute of Technology Karnataka, Surathkal
+    email: vartikatrao@gmail.com
+ -
+    fullname: Hayyan Arshad
+    organization: National Institute of Technology Karnataka, Surathkal
+    email: hayyanhamnah@gmail.com
+ -
+    fullname: Mohit P. Tahiliani
+    organization: National Institute of Technology Karnataka, Surathkal
+    email: tahiliani@nitk.edu.in
 
 normative:
+
 
 informative:
 
 
 --- abstract
 
-TODO Abstract
+This document extends RFCXXXX (I-D.draft-ietf-netconf-https-notif-15) by introducing CBOR encoding for YANG notifications over HTTPS in addition to the existing JSON and XML encoding schemes. 
 
 
 --- middle
