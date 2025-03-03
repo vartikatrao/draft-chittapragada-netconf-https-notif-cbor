@@ -69,13 +69,14 @@ This document extends RFCXXXX {{!I-D.draft-ietf-netconf-https-notif-15}} by intr
 
 # Introduction
 
-RFCXXXX {{!I-D.draft-ietf-netconf-https-notif-15}} introduces a framework for the transfer of YANG notifications over HTTPS using JSON and XML encoding schemes. This document extends RFCXXXX {{!I-D.draft-ietf-netconf-https-notif-15}} by introducing CBOR encoding for event notifications over HTTPS in addition to the existing encoding schemes. 
+This document introduces a CBOR encoding scheme for event notifications over HTTPS by using the framework proposed in {{!I-D.draft-ietf-netconf-https-notif-15}} which supports transfer of YANG notifications over HTTPS using JSON and XML encoding schemes.  
 
-In RFCXXXX, the capabilities HTTP-target resource allows a publisher to retrieve supported encoding formats via a GET request, while the relay-notification resource enables the publisher to send YANG notifications via POST requests. These requests and responses use different content types based on the selected encoding scheme.
 
-CBOR offers a more efficient and compact representation of YANG notifications.
+In {{!I-D.draft-ietf-netconf-https-notif-15}}RFCXXXX, the capabilities HTTP-target resource allows a publisher to retrieve supported encoding formats via a GET request, while the relay-notification resource enables the publisher to send YANG notifications via POST requests. These requests and responses use different content types based on the selected encoding scheme. This document defines support for using CBOR encoding as mentioned in section 1 of {{!I-D.draft-ietf-netconf-https-notif-15}}
 
-This document provides description and examples of the GET and POST request and reply encoded in CBOR
+CBOR offers an efficient and compact representation of YANG notifications.
+
+Examples of the GET and POST request and reply encoded in CBOR are also provided.  
 
 
 # Conventions and Definitions
@@ -100,6 +101,13 @@ The following term(s) are defined in Subscription to YANG Notifications {{!RFC86
 
    - Subscribed Notifications
 
+The following term(s) are defined in Encoding of Data Modeled with YANG in the Concise Binary Object Representation (CBOR) {{!RFC9254}}:
+
+   - Diagnostic Notifications
+   
+   - YANG Schema Item iDentifier (or "YANG SID" or simply "SID"): 63-bit unsigned integer used to identify different YANG items.
+
+
 
 # CBOR Encoding
 
@@ -111,9 +119,7 @@ The publisher sends a request to the receiver to learn its capabilities. In the 
 
 ~~~ http-request
 GET /some/path/capabilities HTTP/1.1
-
    Host: example.com
-
    Accept: application/cbor, application/xml;0.9, application/json;q=0.5
 ~~~
 
@@ -169,9 +175,7 @@ The publisher sends an HTTP POST request to the "relay-notification" resource on
 
 ~~~ http-request
 POST /some/path/relay-notification HTTP/1.1
-
    Host: example.com
-
    Content-Type: application/cbor
 ~~~
 
@@ -192,6 +196,7 @@ Diagnostic notation:
 
 Cbor Encoding: 
 
+~~~
 A1                                  	# map(1)
    78 1D                            	# text(29)
   	696574662D68747470732D6E6F7469663A6E6F74696669636174696F6E # "ietf-https-notif:notification"
@@ -218,6 +223,7 @@ A1                                  	# map(1)
            	63617264             	# "card"
         	69                      	# text(9)
            	45746865726E657430   	# "Ethernet0"
+~~~
 
 ### CBOR encoding using SIDs as keys
 
@@ -238,7 +244,7 @@ Diagnostic Notation:
 
 The above is assuming the YANG module for event notifications has a corresponding .sid file with these entries 
 
-~~~sid files
+~~~ 
 "item": [
       {
         "namespace": "module",
@@ -309,11 +315,8 @@ This document requests the the IANA registry to include an additional entry to t
 
 
 Record:
-
    URN:         urn:ietf:params:yang-notif:https-capability:encoding:cbor
-
    Reference:   RFC XXXX:An HTTPS-based Transport for YANG Notifications
-
    Description: Identifies support for CBOR-encoded notifications.
 
 
