@@ -52,7 +52,7 @@ author:
     email: tahiliani@nitk.edu.in
 
 normative:
- I-D.ietf-netconf-http-client-server-15:
+ I-D.draft-ietf-netconf-https-notif-15:
  RFC8949:
  RFC9254:
 
@@ -61,7 +61,7 @@ informative:
 
 --- abstract
 
-This document extends RFCXXXX (I-D.draft-ietf-netconf-https-notif-15) by introducing CBOR encoding for YANG notifications over HTTPS in addition to the existing JSON and XML encoding schemes. 
+This document extends RFCXXXX {{!I-D.draft-ietf-netconf-https-notif-15}} by introducing CBOR encoding for YANG notifications over HTTPS in addition to the existing JSON and XML encoding schemes. 
 
 
 --- middle
@@ -70,9 +70,11 @@ This document extends RFCXXXX (I-D.draft-ietf-netconf-https-notif-15) by introdu
 
 RFCXXXX {{!I-D.draft-ietf-netconf-https-notif-15}} introduces a framework for the transfer of YANG notifications over HTTPS using JSON and XML encoding schemes. This document extends RFCXXXX {{!I-D.draft-ietf-netconf-https-notif-15}} by introducing CBOR encoding for event notifications over HTTPS in addition to the existing encoding schemes. 
 
-In RFCXXXX, the capabilities HTTP-target resource allows a publisher to retrieve supported encoding formats via a GET request, while the relay-notification resource enables the publisher to send YANG notifications via POST requests. These requests and responses use different content types based on the selected encoding scheme. CBOR offers a more efficient and compact representation of YANG notifications.
+In RFCXXXX, the capabilities HTTP-target resource allows a publisher to retrieve supported encoding formats via a GET request, while the relay-notification resource enables the publisher to send YANG notifications via POST requests. These requests and responses use different content types based on the selected encoding scheme.
 
-Examples of the GET and POST request and reply encoded in CBOR are also provided in this document.  
+CBOR offers a more efficient and compact representation of YANG notifications.
+
+This document provides description and examples of the GET and POST request and reply encoded in CBOR
 
 
 # Conventions and Definitions
@@ -81,14 +83,20 @@ Examples of the GET and POST request and reply encoded in CBOR are also provided
 
 # Terminology
 
-This document uses the following terms defined in Section 2,3 and 4 of RFCXXXX {{!I-D.draft-ietf-netconf-https-notif-15}}. 
+This document uses the following terms defined in Section 2,3 and 4 of RFCXXXX {{!I-D.draft-ietf-netconf-https-notif-15}}:
+
    - Capabilities Resource
+
    - Relay-Notification
+
    - Event Notification
 
-The following term(s) are defined in Subscription to YANG Notifications {{!RFC8639}}.
+The following term(s) are defined in Subscription to YANG Notifications {{!RFC8639}}:
+
    - Publisher
+
    - Receiver
+
    - Subscribed Notifications
 
 
@@ -101,8 +109,11 @@ YANG notifications can be encoded in CBOR using Names or SIDs in keys. Notificat
 The publisher sends a request to the receiver to learn its capabilities. In the below example, the “Accept” states that the publisher wants to receive the capabilities response in CBOR but if not supported then in XML or JSON in that order. 
 
 GET /some/path/capabilities HTTP/1.1
+
    Host: example.com
+   
    Accept: application/cbor, application/xml;0.9, application/json;q=0.5
+
 
 ## Response
  If the receiver is able to reply using “application/cbor” and assuming it is capable of receiving JSON, XML and CBOR encoded messages the response would look like this
@@ -117,7 +128,6 @@ Diagnostic Notation:
    Server: example-server
    Cache-Control: no-cache
    Content-Type: application/json
-   ~~~ json
    {
    "receiver-capabilities": {
      "receiver-capability": [
@@ -127,7 +137,6 @@ Diagnostic Notation:
         ]
       }
    }
-   ~~~
 ~~~
 
 # Security Considerations
