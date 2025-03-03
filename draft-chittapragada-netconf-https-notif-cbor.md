@@ -9,20 +9,20 @@ number:
 date:
 consensus: true
 v: 3
-area: "Network Configuration Protocol"
-workgroup: "NETCONF Working Group"
+area: ""
+workgroup: "Network Configuration"
 keyword:
  - cbor
  - https
  - yang
 
 venue:
-  group: WG
-  type: Working Group
-  mail: WG@example.com
-  arch: https://example.com/WG
-  github: USER/REPO
-  latest: https://example.com/LATEST
+  group: "Network Configuration"
+  type: ""
+  mail: "netconf@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/netconf/"
+  github: "MeherRushi/draft-chittapragada-netconf-https-notif-cbor"
+  latest: "https://MeherRushi.github.io/draft-chittapragada-netconf-https-notif-cbor/draft-chittapragada-netconf-https-notif-cbor.html"
 
 author:
  -
