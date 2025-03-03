@@ -19,8 +19,8 @@ keyword:
 venue:
   group: "NETCONF"
   type: "Working Group"
-  mail: "WG@example.com"
-  arch: "https://example.com/WG"
+  mail: "netconf@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/netconf/"
   github: "meherrushi/draft-chittapragada-netconf-https-notif-cbor"
   latest: "https://meherrushi.github.io/draft-chittapragada-netconf-https-notif-cbor/draft-chittapragada-netconf-https-notif-cbor.html"
 
@@ -28,22 +28,18 @@ author:
  -
     ins: B. M. Chittapragada
     name: Bharadwaja Meherrushi Chittapragada
-    org: National Institute of Technology Karnataka, Surathkal
     email: meherrushi2@gmail.com
  -
     ins: S. Bhat
     name: Siddharth Bhat
-    org: National Institute of Technology Karnataka, Surathkal
     email: siddharth.bhat10@gmail.com
  -
     ins: V. T. Rao
     name: Vartika T Rao
-    org: National Institute of Technology Karnataka, Surathkal
     email: vartikatrao@gmail.com
  -
     ins: H. Arshad
     name: Hayyan Arshad
-    org: National Institute of Technology Karnataka, Surathkal
     email: hayyanhamnah@gmail.com
  -
     ins: M. P. Tahiliani
@@ -62,7 +58,7 @@ informative:
 
 --- abstract
 
-This document extends RFCXXXX {{!I-D.draft-ietf-netconf-https-notif-15}} by introducing CBOR encoding for YANG notifications over HTTPS in addition to the existing JSON and XML encoding schemes. 
+This document extends {{!I-D.draft-ietf-netconf-https-notif-15}} by introducing CBOR encoding for YANG notifications over HTTPS in addition to the existing JSON and XML encoding schemes. 
 
 
 --- middle
@@ -72,7 +68,7 @@ This document extends RFCXXXX {{!I-D.draft-ietf-netconf-https-notif-15}} by intr
 This document introduces a CBOR encoding scheme for event notifications over HTTPS by using the framework proposed in {{!I-D.draft-ietf-netconf-https-notif-15}} which supports transfer of YANG notifications over HTTPS using JSON and XML encoding schemes.  
 
 
-In {{!I-D.draft-ietf-netconf-https-notif-15}}RFCXXXX, the capabilities HTTP-target resource allows a publisher to retrieve supported encoding formats via a GET request, while the relay-notification resource enables the publisher to send YANG notifications via POST requests. These requests and responses use different content types based on the selected encoding scheme. This document defines support for using CBOR encoding as mentioned in section 1 of {{!I-D.draft-ietf-netconf-https-notif-15}}
+In {{!I-D.draft-ietf-netconf-https-notif-15}}, the capabilities HTTP-target resource allows a publisher to retrieve supported encoding formats via a GET request, while the relay-notification resource enables the publisher to send YANG notifications via POST requests. These requests and responses use different content types based on the selected encoding scheme. This document defines support for using CBOR encoding as mentioned in section 1 of {{!I-D.draft-ietf-netconf-https-notif-15}}
 
 CBOR offers an efficient and compact representation of YANG notifications.
 
@@ -85,7 +81,7 @@ Examples of the GET and POST request and reply encoded in CBOR are also provided
 
 # Terminology
 
-This document uses the following terms defined in Section 2,3 and 4 of RFCXXXX {{!I-D.draft-ietf-netconf-https-notif-15}}:
+This document uses the following terms defined in Section 2,3 and 4 of {{!I-D.draft-ietf-netconf-https-notif-15}}:
 
    - Capabilities Resource
 
@@ -109,9 +105,9 @@ The following term(s) are defined in Encoding of Data Modeled with YANG in the C
 
 
 
-# CBOR Encoding
+# CBOR Encoding of the notification(s)
 
-YANG notifications can be encoded in CBOR using Names or SIDs in keys. Notifications encoded using names is similar to JSON encoding as defined in Section 3.4 and 4.3 of RFCXXXX {{!I-D.draft-ietf-netconf-https-notif-15}}. Notification encoded using YANG-SIDs replaces the names of the keys of the CBOR encoded message for a 63 bit unsigned integer.  In this case, the keys of the encoded data use the SID value as defined in Section 3.2 of {{!RFC9254}}.  
+YANG notifications can be encoded in CBOR using Names or SIDs in keys. Notifications encoded using names is similar to JSON encoding as defined in Section 3.4 and 4.3 of {{!I-D.draft-ietf-netconf-https-notif-15}}. Notification encoded using YANG-SIDs replaces the names of the keys of the CBOR encoded message with a 63 bit unsigned integer.  In this case, the term 'SID' is defined in Section 3.2 of {{!RFC9254}}, and the keys of the encoded data use SID value as mentioned in 4.3.2 of this document.
 
 ## Capabilities Request
 
@@ -307,22 +303,22 @@ Bandwidth constraints can be applied using traffic control to analyze CBOR encod
 
 # Security Considerations
 
-Addition of the CBOR encoding introduces no specific security exposures or risks other that the ones mentioned in {{!RFC9254}} and RFC XXXX {{!I-D.draft-ietf-netconf-https-notif-15}} (An HTTPS-based Transport for YANG Notifications)
+Addition of the CBOR encoding introduces no specific security exposures or risks other that the ones mentioned in {{!RFC9254}} and {{!I-D.draft-ietf-netconf-https-notif-15}} (An HTTPS-based Transport for YANG Notifications)
 
 # IANA Considerations
 
 This document requests the the IANA registry to include an additional entry to the proposed initial assignments in the “Capabilities for HTTPS Notification Receivers” registry within the YANG Notifications registry group(defined in {{RFC3553}}) as requested in the draft {{!I-D.ietf-netconf-http-client-server}}. The following entry is added :
 
-
+~~~
 Record:
    URN:         urn:ietf:params:yang-notif:https-capability:encoding:cbor
    Reference:   RFC XXXX:An HTTPS-based Transport for YANG Notifications
    Description: Identifies support for CBOR-encoded notifications.
-
+~~~
 
 --- back
 
 # Acknowledgments
 {:numbered="false"}
 
-The authors acknowlegde the support of the Kent Watsen and Mahesh Jethanandani, the authors of RFC XXXX {{!I-D.draft-ietf-netconf-https-notif-15}} for the encouragment provided to draft this document.
+The authors acknowlegde the support of Kent Watsen and Mahesh Jethanandani, the authors of {{!I-D.draft-ietf-netconf-https-notif-15}} for their guidance and support provided to draft this document.
