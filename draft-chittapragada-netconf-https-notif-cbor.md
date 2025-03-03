@@ -104,7 +104,7 @@ The following term(s) are defined in Subscription to YANG Notifications {{!RFC86
 The following term(s) are defined in Encoding of Data Modeled with YANG in the Concise Binary Object Representation (CBOR) {{!RFC9254}}:
 
    - Diagnostic Notifications
-   
+
    - YANG Schema Item iDentifier (or "YANG SID" or simply "SID"): 63-bit unsigned integer used to identify different YANG items.
 
 
@@ -325,4 +325,4 @@ Record:
 # Acknowledgments
 {:numbered="false"}
 
-The authors acknowlegde the support of the authors of RFC XXXX {{!I-D.draft-ietf-netconf-https-notif-15}} for the encouragment and guidance provided to draft this document .
+The authors acknowlegde the support of the Kent Watsen and Mahesh Jethanandani, the authors of RFC XXXX {{!I-D.draft-ietf-netconf-https-notif-15}} for the encouragment provided to draft this document.
