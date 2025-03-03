@@ -1,7 +1,7 @@
 ---
 title: "CBOR Encoding for HTTPS-based Transport for YANG Notifications"
 abbrev: "https-notif-cbor"
-category: std 
+category: std
 
 docname: draft-chittapragada-netconf-https-notif-cbor-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
@@ -17,12 +17,12 @@ keyword:
  - yang
 
 venue:
-  group: "NETCONF"
-  type: "Working Group"
-  mail: "netconf@ietf.org"
-  arch: "https://mailarchive.ietf.org/arch/browse/netconf/"
-  github: "meherrushi/draft-chittapragada-netconf-https-notif-cbor"
-  latest: "https://meherrushi.github.io/draft-chittapragada-netconf-https-notif-cbor/draft-chittapragada-netconf-https-notif-cbor.html"
+  group: WG
+  type: Working Group
+  mail: WG@example.com
+  arch: https://example.com/WG
+  github: USER/REPO
+  latest: https://example.com/LATEST
 
 author:
  -
@@ -58,21 +58,21 @@ informative:
 
 --- abstract
 
-This document extends {{!I-D.draft-ietf-netconf-https-notif-15}} by introducing CBOR encoding for YANG notifications over HTTPS in addition to the existing JSON and XML encoding schemes. 
+This document extends {{!I-D.draft-ietf-netconf-https-notif-15}} by introducing CBOR encoding for YANG notifications over HTTPS in addition to the existing JSON and XML encoding schemes.
 
 
 --- middle
 
 # Introduction
 
-This document introduces a CBOR encoding scheme for event notifications over HTTPS by using the framework proposed in {{!I-D.draft-ietf-netconf-https-notif-15}} which supports transfer of YANG notifications over HTTPS using JSON and XML encoding schemes.  
+This document introduces a CBOR encoding scheme for event notifications over HTTPS by using the framework proposed in {{!I-D.draft-ietf-netconf-https-notif-15}} which supports transfer of YANG notifications over HTTPS using JSON and XML encoding schemes.
 
 
 In {{!I-D.draft-ietf-netconf-https-notif-15}}, the capabilities HTTP-target resource allows a publisher to retrieve supported encoding formats via a GET request, while the relay-notification resource enables the publisher to send YANG notifications via POST requests. These requests and responses use different content types based on the selected encoding scheme. This document defines support for using CBOR encoding as mentioned in section 1 of {{!I-D.draft-ietf-netconf-https-notif-15}}
 
 CBOR offers an efficient and compact representation of YANG notifications.
 
-Examples of the GET and POST request and reply encoded in CBOR are also provided.  
+Examples of the GET and POST request and reply encoded in CBOR are also provided.
 
 
 # Conventions and Definitions
@@ -111,7 +111,7 @@ YANG notifications can be encoded in CBOR using Names or SIDs in keys. Notificat
 
 ## Capabilities Request
 
-The publisher sends a request to the receiver to learn its capabilities. In the below example, the “Accept” states that the publisher wants to receive the capabilities response in CBOR but if not supported then in XML or JSON in that order. 
+The publisher sends a request to the receiver to learn its capabilities. In the below example, the “Accept” states that the publisher wants to receive the capabilities response in CBOR but if not supported then in XML or JSON in that order.
 
 ~~~ http-request
 GET /some/path/capabilities HTTP/1.1
@@ -123,9 +123,9 @@ GET /some/path/capabilities HTTP/1.1
 
  If the receiver is able to reply using “application/cbor” and assuming it is capable of receiving JSON, XML and CBOR encoded messages the response would look like this
 
-### CBOR using names as keys 
+### CBOR using names as keys
 
-Diagnostic Notation: 
+Diagnostic Notation:
 
 ~~~ http-message
    HTTP/1.1 200 OK
@@ -144,22 +144,22 @@ Diagnostic Notation:
    }
 ~~~
 
-CBOR Encoding: 
+CBOR Encoding:
 
 ~~~
-A1                                  	# map(1)
-   75                               	# text(21)
-  	72656365697665722D6361706162696C6974696573 # "receiver-capabilities"
-   A1                               	# map(1)
-  	73                            	# text(19)
-     	72656365697665722D6361706162696C697479 # "receiver-capability"
-  	83                            	# array(3)
-     	78 36                      	# text(54)
-        	75726E3A696574663A6361706162696C6974793A68747470732D6E6F7469662D72656365697665723A656E636F64696E673A6A736F6E # "urn:ietf:capability:https-notif-receiver:encoding:json"
-     	78 35                      	# text(53)
-        	75726E3A696574663A6361706162696C6974793A68747470732D6E6F7469662D72656365697665723A656E636F64696E673A786D6C # "urn:ietf:capability:https-notif-receiver:encoding:xml"
-     	78 36                      	# text(54)
-        	75726E3A696574663A6361706162696C6974793A68747470732D6E6F7469662D72656365697665723A656E636F64696E673A63626F72 # "urn:ietf:capability:https-notif-receiver:encoding:cbor"
+A1                                      # map(1)
+   75                                   # text(21)
+      72656365697665722D6361706162696C6974696573 # "receiver-capabilities"
+   A1                                   # map(1)
+      73                                # text(19)
+         72656365697665722D6361706162696C697479 # "receiver-capability"
+      83                                # array(3)
+         78 36                          # text(54)
+            75726E3A696574663A6361706162696C6974793A68747470732D6E6F7469662D72656365697665723A656E636F64696E673A6A736F6E # "urn:ietf:capability:https-notif-receiver:encoding:json"
+         78 35                          # text(53)
+            75726E3A696574663A6361706162696C6974793A68747470732D6E6F7469662D72656365697665723A656E636F64696E673A786D6C # "urn:ietf:capability:https-notif-receiver:encoding:xml"
+         78 36                          # text(54)
+            75726E3A696574663A6361706162696C6974793A68747470732D6E6F7469662D72656365697665723A656E636F64696E673A63626F72 # "urn:ietf:capability:https-notif-receiver:encoding:cbor"
 ~~~
 
 
@@ -167,7 +167,7 @@ A1                                  	# map(1)
 
 The publisher sends an HTTP POST request to the "relay-notification" resource on the receiver with the "Content-Type" header set to either "application/cbor" in case the receiver is CBOR capable and a body containing the notification encoded in CBOR.
 
-### CBOR encoding using names as keys 
+### CBOR encoding using names as keys
 
 ~~~ http-request
 POST /some/path/relay-notification HTTP/1.1
@@ -175,7 +175,7 @@ POST /some/path/relay-notification HTTP/1.1
    Content-Type: application/cbor
 ~~~
 
-Diagnostic notation: 
+Diagnostic notation:
 
 ~~~ http-response
    {
@@ -190,40 +190,40 @@ Diagnostic notation:
    }
 ~~~
 
-Cbor Encoding: 
+Cbor Encoding:
 
 ~~~
-A1                                  	# map(1)
-   78 1D                            	# text(29)
-  	696574662D68747470732D6E6F7469663A6E6F74696669636174696F6E # "ietf-https-notif:notification"
-   A2                               	# map(2)
-  	69                            	# text(9)
-     	6576656E7454696D65         	# "eventTime"
-  	74                            	# text(20)
-     	323031332D31322D32315430303A30313A30305A # "2013-12-21T00:01:00Z"
-  	71                            	# text(17)
-     	6578616D706C652D6D6F643A6576656E74 # "example-mod:event"
-  	A3                            	# map(3)
-     	68                         	# text(8)
-        	7365766572697479        	# "severity"
-     	65                         	# text(5)
-        	6D616A6F72              	# "major"
-     	6B                         	# text(11)
-        	6576656E742D636C617373  	# "event-class"
-     	65                         	# text(5)
-        	6661756C74              	# "fault"
-     	70                         	# text(16)
-        	7265706F7274696E672D656E74697479 # "reporting-entity"
-     	A1                         	# map(1)
-        	64                      	# text(4)
-           	63617264             	# "card"
-        	69                      	# text(9)
-           	45746865726E657430   	# "Ethernet0"
+A1                                      # map(1)
+   78 1D                                # text(29)
+      696574662D68747470732D6E6F7469663A6E6F74696669636174696F6E # "ietf-https-notif:notification"
+   A2                                   # map(2)
+      69                                # text(9)
+         6576656E7454696D65             # "eventTime"
+      74                                # text(20)
+         323031332D31322D32315430303A30313A30305A # "2013-12-21T00:01:00Z"
+      71                                # text(17)
+         6578616D706C652D6D6F643A6576656E74 # "example-mod:event"
+      A3                                # map(3)
+         68                             # text(8)
+            7365766572697479            # "severity"
+         65                             # text(5)
+            6D616A6F72                  # "major"
+         6B                             # text(11)
+            6576656E742D636C617373      # "event-class"
+         65                             # text(5)
+            6661756C74                  # "fault"
+         70                             # text(16)
+            7265706F7274696E672D656E74697479 # "reporting-entity"
+         A1                             # map(1)
+            64                          # text(4)
+               63617264                 # "card"
+            69                          # text(9)
+               45746865726E657430       # "Ethernet0"
 ~~~
 
 ### CBOR encoding using SIDs as keys
 
-Diagnostic Notation: 
+Diagnostic Notation:
 
 ~~~ http-response
    {
@@ -238,9 +238,9 @@ Diagnostic Notation:
    }
 ~~~
 
-The above is assuming the YANG module for event notifications has a corresponding .sid file with these entries 
+The above is assuming the YANG module for event notifications has a corresponding .sid file with these entries
 
-~~~ 
+~~~
 "item": [
       {
         "namespace": "module",
@@ -260,36 +260,36 @@ The above is assuming the YANG module for event notifications has a correspondin
     ]
 ~~~
 
-CBOR Encoding: 
+CBOR Encoding:
 
 ~~~
-A1                                  	# map(1)
-   19 0A28                          	# unsigned(2600)
-   A2                               	# map(2)
-  	01                            	# unsigned(1)
-  	74                            	# text(20)
-     	323031332D31322D32315430303A30313A30305A # "2013-12-21T00:01:00Z"
-  	71                            	# text(17)
-     	6578616D706C652D6D6F643A6576656E74 # "example-mod:event"
-  	A3                            	# map(3)
-     	68                         	# text(8)
-        	7365766572697479        	# "severity"
-     	65                         	# text(5)
-        	6D616A6F72              	# "major"
-     	6B                         	# text(11)
-        	6576656E742D636C617373  	# "event-class"
-     	65                         	# text(5)
-        	6661756C74              	# "fault"
-     	70                         	# text(16)
-        	7265706F7274696E672D656E74697479 # "reporting-entity"
-     	A1                         	# map(1)
-        	64                      	# text(4)
-           	63617264             	# "card"
-        	69                      	# text(9)
-           	45746865726E657430   	# "Ethernet0"
+A1                                      # map(1)
+   19 0A28                              # unsigned(2600)
+   A2                                   # map(2)
+      01                                # unsigned(1)
+      74                                # text(20)
+         323031332D31322D32315430303A30313A30305A # "2013-12-21T00:01:00Z"
+      71                                # text(17)
+         6578616D706C652D6D6F643A6576656E74 # "example-mod:event"
+      A3                                # map(3)
+         68                             # text(8)
+            7365766572697479            # "severity"
+         65                             # text(5)
+            6D616A6F72                  # "major"
+         6B                             # text(11)
+            6576656E742D636C617373      # "event-class"
+         65                             # text(5)
+            6661756C74                  # "fault"
+         70                             # text(16)
+            7265706F7274696E672D656E74697479 # "reporting-entity"
+         A1                             # map(1)
+            64                          # text(4)
+               63617264                 # "card"
+            69                          # text(9)
+               45746865726E657430       # "Ethernet0"
 ~~~
 
-## Relay Notification Response  
+## Relay Notification Response
 
 The response on success is  "204 (No Content)". In case of corrupted or malformed event, the response is an appropriate HTTP error response.
 
