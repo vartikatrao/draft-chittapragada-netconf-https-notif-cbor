@@ -227,7 +227,7 @@ Diagnostic Notation:
 
 ~~~ http-response
    {
-    2600: {
+    2601: {
        1: "2013-12-21T00:01:00Z",
        "example-mod:event" : {
          "event-class" : "fault",
