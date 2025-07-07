@@ -25,27 +25,30 @@ venue:
   latest: "https://MeherRushi.github.io/draft-chittapragada-netconf-https-notif-cbor/draft-chittapragada-netconf-https-notif-cbor.html"
 
 author:
- -
-    ins: B. M. Chittapragada
-    name: Bharadwaja Meherrushi Chittapragada
+  - name: Bharadwaja Meherrushi Chittapragada
     email: meherrushi2@gmail.com
- -
-    ins: S. Bhat
-    name: Siddharth Bhat
-    email: siddharth.bhat10@gmail.com
- -
-    ins: V. T. Rao
-    name: Vartika T Rao
-    email: vartikatrao@gmail.com
- -
-    ins: H. Arshad
-    name: Hayyan Arshad
-    email: hayyanhamnah@gmail.com
- -
-    ins: M. P. Tahiliani
-    name: Mohit P. Tahiliani
+    ins: B. M. Chittapragada
     org: National Institute of Technology Karnataka, Surathkal
+
+  - name: Siddharth Bhat
+    email: siddharth.bhat10@gmail.com
+    ins: S. Bhat
+    org: National Institute of Technology Karnataka, Surathkal
+
+  - name: Vartika T Rao
+    email: vartikatrao@gmail.com
+    ins: V. T. Rao
+    org: National Institute of Technology Karnataka, Surathkal
+
+  - name: Hayyan Arshad
+    email: hayyanhamnah@gmail.com
+    ins: H. Arshad
+    org: National Institute of Technology Karnataka, Surathkal
+
+  - name: Mohit P. Tahiliani
     email: tahiliani@nitk.edu.in
+    ins: M. P. Tahiliani
+    org: National Institute of Technology Karnataka, Surathkal
 
 normative:
  I-D.draft-ietf-netconf-https-notif-15:
