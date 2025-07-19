@@ -319,7 +319,7 @@ Addition of the CBOR encoding introduces no specific security exposures or risks
 
 # IANA Considerations
 
-This document requests the the IANA registry to include an additional entry to the proposed initial assignments in the “Capabilities for HTTPS Notification Receivers” registry within the YANG Notifications registry group(defined in {{RFC3553}}) as requested in the draft {{!I-D.ietf-netconf-http-client-server}}. The following entry is added :
+This document requests that IANA include an additional entry in the “Capabilities for HTTPS Notification Receivers” registry, defined in {{!I-D.draft-ietf-netconf-https-notif}}, within the YANG Notifications registry group (as defined in {{RFC3553}}). The following entry is added:
 
 ~~~
 Record:
