@@ -158,7 +158,7 @@ A1                                      # map(1)
             75726E3A696574663A6361706162696C6974793A68747470732D6E6F7469662D72656365697665723A656E636F64696E673A63626F72 # "urn:ietf:capability:https-notif-receiver:encoding:cbor"
 ~~~
 
- If the receiver is unable to reply using "application/cbor" the response might look like this: 
+ If the receiver is unable to reply using "application/cbor" the response might look like this:
 
 ~~~ http-message
    HTTP/1.1 200 OK
