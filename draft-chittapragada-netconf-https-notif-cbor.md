@@ -124,14 +124,17 @@ GET /some/path/capabilities HTTP/1.1
 
 ### CBOR using names as keys
 
-Diagnostic Notation:
-
 ~~~ http-message
    HTTP/1.1 200 OK
    Date: Tue, 4 March 2025 20:33:30 GMT
    Server: example-server
    Cache-Control: no-cache
    Content-Type: application/cbor
+~~~
+
+Diagnostic Notation:
+
+~~~
    {
    "receiver-capabilities": {
      "receiver-capability": [
