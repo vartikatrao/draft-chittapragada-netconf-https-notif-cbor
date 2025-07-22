@@ -158,7 +158,48 @@ A1                                      # map(1)
             75726E3A696574663A6361706162696C6974793A68747470732D6E6F7469662D72656365697665723A656E636F64696E673A63626F72 # "urn:ietf:capability:https-notif-receiver:encoding:cbor"
 ~~~
 
- If the receiver is unable to reply using "application/cbor" the response might look like this:
+If the receiver is able to reply using “application/cbor” and assuming it is not capable of receiving cbor, but can receive both json and xml notifications:
+
+### CBOR using names as keys
+
+~~~ http-message
+   HTTP/1.1 200 OK
+   Date: Tue, 4 March 2025 20:33:30 GMT
+   Server: example-server
+   Cache-Control: no-cache
+   Content-Type: application/cbor
+~~~
+
+Diagnostic Notation:
+
+~~~
+   {
+   "receiver-capabilities": {
+     "receiver-capability": [
+       "urn:ietf:capability:https-notif-receiver:encoding:json",
+       "urn:ietf:capability:https-notif-receiver:encoding:xml"
+        ]
+      }
+   }
+~~~
+
+CBOR Encoding:
+
+~~~
+A1                                      # map(1)
+   75                                   # text(21)
+      72656365697665722D6361706162696C6974696573 # "receiver-capabilities"
+   A1                                   # map(1)
+      73                                # text(19)
+         72656365697665722D6361706162696C697479 # "receiver-capability"
+      82                                # array(2)
+         78 36                          # text(54)
+            75726E3A696574663A6361706162696C6974793A68747470732D6E6F7469662D72656365697665723A656E636F64696E673A6A736F6E # "urn:ietf:capability:https-notif-receiver:encoding:json"
+         78 35                          # text(53)
+            75726E3A696574663A6361706162696C6974793A68747470732D6E6F7469662D72656365697665723A656E636F64696E673A786D6C # "urn:ietf:capability:https-notif-receiver:encoding:xml"
+~~~
+
+ If the receiver is unable to reply using "application/cbor", but is capable of receiving only cbor then the response might look like this:
 
 ~~~ http-message
    HTTP/1.1 200 OK
