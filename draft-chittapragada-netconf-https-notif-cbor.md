@@ -51,7 +51,7 @@ author:
     org: National Institute of Technology Karnataka, Surathkal
 
 normative:
- I-D.draft-ietf-netconf-https-notif-15:
+ I-D.draft-ietf-netconf-https-notif:
  RFC8949:
  RFC9254:
 
@@ -61,30 +61,26 @@ informative:
 
 --- abstract
 
-This document extends {{!I-D.draft-ietf-netconf-https-notif-15}} by introducing CBOR encoding for YANG notifications over HTTPS in addition to the existing JSON and XML encoding schemes.
+This document extends {{!I-D.draft-ietf-netconf-https-notif}} by introducing CBOR encoding for YANG notifications over HTTPS in addition to the existing JSON and XML encoding schemes.
 
 
 --- middle
 
 # Introduction
 
-This document introduces a CBOR encoding scheme for event notifications over HTTPS by using the framework proposed in {{!I-D.draft-ietf-netconf-https-notif-15}} which supports transfer of YANG notifications over HTTPS using JSON and XML encoding schemes.
+This document introduces a CBOR encoding scheme for event notifications over HTTPS by using the framework proposed in {{!I-D.draft-ietf-netconf-https-notif}} which supports transfer of YANG notifications over HTTPS using JSON and XML encoding schemes.
 
 
-In {{!I-D.draft-ietf-netconf-https-notif-15}}, the capabilities HTTP-target resource allows a publisher to retrieve supported encoding formats via a GET request, while the relay-notification resource enables the publisher to send YANG notifications via POST requests. These requests and responses use different content types based on the selected encoding scheme. This document defines support for using CBOR encoding as mentioned in section 1 of {{!I-D.draft-ietf-netconf-https-notif-15}}
+In {{!I-D.draft-ietf-netconf-https-notif}}, the capabilities HTTP-target resource allows a publisher to retrieve supported encoding formats via a GET request, while the relay-notification resource enables the publisher to send YANG notifications via POST requests. These requests and responses use different content types based on the selected encoding scheme. This document defines support for using CBOR encoding as mentioned in section 1 of {{!I-D.draft-ietf-netconf-https-notif}}
 
 CBOR offers an efficient and compact representation of YANG notifications.
 
 Examples of the GET and POST request and reply encoded in CBOR are also provided.
 
 
-# Conventions and Definitions
-
-{::boilerplate bcp14-tagged}
-
 # Terminology
 
-This document uses the following terms defined in Section 2,3 and 4 of {{!I-D.draft-ietf-netconf-https-notif-15}}:
+This document uses the following terms defined in Section 2,3 and 4 of {{!I-D.draft-ietf-netconf-https-notif}}:
 
    - Capabilities Resource
 
@@ -110,7 +106,7 @@ The following term(s) are defined in Encoding of Data Modeled with YANG in the C
 
 # CBOR Encoding of the notification(s)
 
-YANG notifications can be encoded in CBOR using Names or SIDs in keys. Notifications encoded using names is similar to JSON encoding as defined in Section 3.4 and 4.3 of {{!I-D.draft-ietf-netconf-https-notif-15}}. Notification encoded using YANG-SIDs replaces the names of the keys of the CBOR encoded message with a 63 bit unsigned integer.  In this case, the term 'SID' is defined in Section 3.2 of {{!RFC9254}}, and the keys of the encoded data use SID value as mentioned in 4.3.2 of this document.
+YANG notifications can be encoded in CBOR using Names or SIDs in keys. Notifications encoded using names is similar to JSON encoding as defined in Section 3.4 and 4.3 of {{!I-D.draft-ietf-netconf-https-notif}}. Notification encoded using YANG-SIDs replaces the names of the keys of the CBOR encoded message with a 63 bit unsigned integer.  In this case, the term 'SID' is defined in Section 3.2 of {{!RFC9254}}, and the keys of the encoded data use SID value as mentioned in 4.3.2 of this document.
 
 ## Capabilities Request
 
@@ -119,28 +115,29 @@ The publisher sends a request to the receiver to learn its capabilities. In the 
 ~~~ http-request
 GET /some/path/capabilities HTTP/1.1
    Host: example.com
-   Accept: application/cbor, application/xml;0.9, application/json;q=0.5
+   Accept: application/cbor, application/xml;0.5, application/json;q=0.9
 ~~~
 
 ## Capabilities Response
 
- If the receiver is able to reply using “application/cbor” and assuming it is capable of receiving JSON, XML and CBOR encoded messages the response would look like this
+ If the receiver is able to reply using “application/cbor” and assuming it is only capable of receiving CBOR encoded messages the response would look like this
 
 ### CBOR using names as keys
-
-Diagnostic Notation:
 
 ~~~ http-message
    HTTP/1.1 200 OK
    Date: Tue, 4 March 2025 20:33:30 GMT
    Server: example-server
    Cache-Control: no-cache
-   Content-Type: application/json
+   Content-Type: application/cbor
+~~~
+
+Diagnostic Notation:
+
+~~~
    {
    "receiver-capabilities": {
      "receiver-capability": [
-       "urn:ietf:capability:https-notif-receiver:encoding:json",
-       "urn:ietf:capability:https-notif-receiver:encoding:xml",
        "urn:ietf:capability:https-notif-receiver:encoding:cbor"
         ]
       }
@@ -156,19 +153,72 @@ A1                                      # map(1)
    A1                                   # map(1)
       73                                # text(19)
          72656365697665722D6361706162696C697479 # "receiver-capability"
-      83                                # array(3)
-         78 36                          # text(54)
-            75726E3A696574663A6361706162696C6974793A68747470732D6E6F7469662D72656365697665723A656E636F64696E673A6A736F6E # "urn:ietf:capability:https-notif-receiver:encoding:json"
-         78 35                          # text(53)
-            75726E3A696574663A6361706162696C6974793A68747470732D6E6F7469662D72656365697665723A656E636F64696E673A786D6C # "urn:ietf:capability:https-notif-receiver:encoding:xml"
+      81                                # array(1)
          78 36                          # text(54)
             75726E3A696574663A6361706162696C6974793A68747470732D6E6F7469662D72656365697665723A656E636F64696E673A63626F72 # "urn:ietf:capability:https-notif-receiver:encoding:cbor"
 ~~~
 
+If the receiver is able to reply using “application/cbor” and assuming it is not capable of receiving cbor, but can receive both json and xml notifications:
+
+### CBOR using names as keys
+
+~~~ http-message
+   HTTP/1.1 200 OK
+   Date: Tue, 4 March 2025 20:33:30 GMT
+   Server: example-server
+   Cache-Control: no-cache
+   Content-Type: application/cbor
+~~~
+
+Diagnostic Notation:
+
+~~~
+   {
+   "receiver-capabilities": {
+     "receiver-capability": [
+       "urn:ietf:capability:https-notif-receiver:encoding:json",
+       "urn:ietf:capability:https-notif-receiver:encoding:xml"
+        ]
+      }
+   }
+~~~
+
+CBOR Encoding:
+
+~~~
+A1                                      # map(1)
+   75                                   # text(21)
+      72656365697665722D6361706162696C6974696573 # "receiver-capabilities"
+   A1                                   # map(1)
+      73                                # text(19)
+         72656365697665722D6361706162696C697479 # "receiver-capability"
+      82                                # array(2)
+         78 36                          # text(54)
+            75726E3A696574663A6361706162696C6974793A68747470732D6E6F7469662D72656365697665723A656E636F64696E673A6A736F6E # "urn:ietf:capability:https-notif-receiver:encoding:json"
+         78 35                          # text(53)
+            75726E3A696574663A6361706162696C6974793A68747470732D6E6F7469662D72656365697665723A656E636F64696E673A786D6C # "urn:ietf:capability:https-notif-receiver:encoding:xml"
+~~~
+
+ If the receiver is unable to reply using "application/cbor", but is capable of receiving only cbor then the response might look like this:
+
+~~~ http-message
+   HTTP/1.1 200 OK
+   Date: Tue, 4 March 2025 20:33:30 GMT
+   Server: example-server
+   Cache-Control: no-cache
+   Content-Type: application/json
+   {
+   "receiver-capabilities": {
+     "receiver-capability": [
+       "urn:ietf:capability:https-notif-receiver:encoding:cbor"
+        ]
+      }
+   }
+~~~
 
 ##  Relay Notification request
 
-The publisher sends an HTTP POST request to the "relay-notification" resource on the receiver with the "Content-Type" header set to either "application/cbor" in case the receiver is CBOR capable and a body containing the notification encoded in CBOR.
+The publisher sends an HTTP POST request to the "relay-notification" resource on the receiver with the "Content-Type" header set to "application/cbor" in case the receiver is CBOR capable and a body containing the notification encoded in CBOR.
 
 ### CBOR encoding using names as keys
 
@@ -306,11 +356,11 @@ Bandwidth constraints can be applied using traffic control to analyze CBOR encod
 
 # Security Considerations
 
-Addition of the CBOR encoding introduces no specific security exposures or risks other that the ones mentioned in {{!RFC9254}} and {{!I-D.draft-ietf-netconf-https-notif-15}} (An HTTPS-based Transport for YANG Notifications)
+Addition of the CBOR encoding introduces no specific security exposures or risks other that the ones mentioned in {{!RFC9254}} and {{!I-D.draft-ietf-netconf-https-notif}} (An HTTPS-based Transport for YANG Notifications)
 
 # IANA Considerations
 
-This document requests the the IANA registry to include an additional entry to the proposed initial assignments in the “Capabilities for HTTPS Notification Receivers” registry within the YANG Notifications registry group(defined in {{RFC3553}}) as requested in the draft {{!I-D.ietf-netconf-http-client-server}}. The following entry is added :
+This document requests that IANA include an additional entry in the “Capabilities for HTTPS Notification Receivers” registry, defined in {{!I-D.draft-ietf-netconf-https-notif}}, within the YANG Notifications registry group (as defined in {{RFC3553}}). The following entry is added:
 
 ~~~
 Record:
@@ -324,4 +374,4 @@ Record:
 # Acknowledgments
 {:numbered="false"}
 
-The authors acknowlegde the support of Kent Watsen and Mahesh Jethanandani, the authors of {{!I-D.draft-ietf-netconf-https-notif-15}} for their guidance and support provided to draft this document.
+The authors acknowlegde the support of Kent Watsen and Mahesh Jethanandani, the authors of {{!I-D.draft-ietf-netconf-https-notif}} for their guidance and support provided to draft this document.
