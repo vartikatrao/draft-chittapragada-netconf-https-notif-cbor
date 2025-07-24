@@ -1,5 +1,5 @@
 ---
-title: "CBOR Encoding for HTTPS-based Transport for YANG Notifications"
+title: "CBOR Encoding for HTTPS-based YANG Notifications Transport"
 abbrev: "https-notif-cbor"
 category: std
 
@@ -61,19 +61,21 @@ informative:
 
 --- abstract
 
-This document extends {{!I-D.draft-ietf-netconf-https-notif}} by introducing CBOR encoding for YANG notifications over HTTPS in addition to the existing JSON and XML encoding schemes.
+This document extends {{!I-D.draft-ietf-netconf-https-notif}} by introducing CBOR encoding for YANG notifications over HTTPS Transport in addition to the existing JSON and XML encoding schemes.
 
 
 --- middle
 
 # Introduction
 
+~~~~ quote
+CBOR offers an efficient and compact representation of YANG.
+~~~~
+
 This document introduces a CBOR encoding scheme for event notifications over HTTPS by using the framework proposed in {{!I-D.draft-ietf-netconf-https-notif}} which supports transfer of YANG notifications over HTTPS using JSON and XML encoding schemes.
 
 
-In {{!I-D.draft-ietf-netconf-https-notif}}, the capabilities HTTP-target resource allows a publisher to retrieve supported encoding formats via a GET request, while the relay-notification resource enables the publisher to send YANG notifications via POST requests. These requests and responses use different content types based on the selected encoding scheme. This document defines support for using CBOR encoding as mentioned in section 1 of {{!I-D.draft-ietf-netconf-https-notif}}
-
-CBOR offers an efficient and compact representation of YANG notifications.
+In {{!I-D.draft-ietf-netconf-https-notif}}, the capabilities HTTP-target resource allows a publisher to retrieve supported encoding formats via GET requests, while the relay-notification resource enables the publisher to send YANG notifications via POST requests. These requests and responses use different content types based on the selected encoding scheme. This document defines support for using CBOR encoding defined in section 1 of {{!I-D.draft-ietf-netconf-https-notif}}
 
 Examples of the GET and POST request and reply encoded in CBOR are also provided.
 
@@ -346,12 +348,50 @@ A1                                      # map(1)
 
 The response on success is  "204 (No Content)". In case of corrupted or malformed event, the response is an appropriate HTTP error response.
 
+## Implementation Status
 
-# Scope of Experimentation
+This section records the status of known implementations of the specification defined by this document at the time of posting. The information is provided to assist the IETF in evaluating the maturity and implementability of the specification. This section will be removed prior to publication as an RFC.
 
-CBOR encoding may be tested against JSON and XML to evaluate requests per second, data transfer rate, and overall network efficiency.
+## Implementation: HTTPS Notification CBOR Draft Implementation
+- *Organization*:
+  National Institute of Technology Karnataka (NITK), Surathkal
 
-Bandwidth constraints can be applied using traffic control to analyze CBOR encoding efficiency under different network conditions.
+- *Implementation Name / Web Page*:
+  HTTPS Notification CBOR Draft Implementation
+  [https://github.com/MeherRushi/https-notif-draft-impl](https://github.com/MeherRushi/https-notif-draft-impl)
+
+- *Description*:
+  This implementation provides a Python-based prototype of the mechanism defined in this document for transporting YANG notifications over HTTPS using JSON, XML and CBOR encoding. It supports name-based CBOR encoding (for now) and includes basic publisher and receiver roles to demonstrate end-to-end message exchange.
+
+- *Maturity Level*:  Prototype
+
+- *Coverage*:
+  - Capabilities discovery via HTTP GET to /capabilities
+  - Event publication via HTTP POST to /relay-notification
+  - Support for name-based CBOR encoding (for now) as described in this document
+
+
+- *Version Compatibility*:
+  The implementation is based on  draft-ietf-netconf-https-notif-15 and draft-chittapragada-netconf-https-notif-cbor-03.
+
+- *Licensing*:
+  Freely distributable under an MIT-style license.
+
+- *Implementation Experience*:
+  - Developed and demonstrated at IETF 121 and 122 Hackathon.
+  - Worked toward enabling CBOR encoding in the libyang library as part of the hackathon effort ([slides](https://datatracker.ietf.org/meeting/123/materials/slides-123-hackathon-sessd-adding-cbor-support-in-libyang-00)).
+  - Evaluated CBOR efficiency compared to JSON and XML in constrained environments.
+  - Built tooling to simulate and measure notification transfer behavior over varying network conditions.
+  - Diagnostic encoding examples used for validation of CBOR structures.
+
+- *Contact Information*:
+  - Bharadwaja Meherrushi Chittapragada (meher.211cs216@nitk.edu.in)
+  - Vartika T Rao (vartikatrao.211it077@nitk.edu.in)
+  - Siddharth Bhat (sidbhat.211ee151@nitk.edu.in)
+  - Hayyan Arshad (hayyanarshad.211cs222@nitk.edu.in)
+
+- *Last Updated*:
+  July 24, 2025
 
 
 # Security Considerations
@@ -374,4 +414,4 @@ Record:
 # Acknowledgments
 {:numbered="false"}
 
-The authors acknowlegde the support of Kent Watsen and Mahesh Jethanandani, the authors of {{!I-D.draft-ietf-netconf-https-notif}} for their guidance and support provided to draft this document.
+The authors acknowledge the support of Kent Watsen and Mahesh Jethanandani, the authors of {{!I-D.draft-ietf-netconf-https-notif}} for their guidance and support provided to draft this document.
