@@ -361,14 +361,14 @@ This section records the status of known implementations of the specification de
   [https://github.com/MeherRushi/https-notif-draft-impl](https://github.com/MeherRushi/https-notif-draft-impl)
 
 - *Description*:
-  This implementation provides a Python-based prototype of the mechanism defined in this document for transporting YANG notifications over HTTPS using JSON, XML and CBOR encoding. It supports name-based CBOR encoding (for now) and includes basic publisher and receiver roles to demonstrate end-to-end message exchange.
+  This implementation provides a Python-based prototype of the mechanism defined in this document for transporting YANG notifications over HTTPS using JSON, XML and CBOR encoding. It supports name-based CBOR encoding and includes basic publisher and receiver roles to demonstrate end-to-end message exchange.
 
 - *Maturity Level*:  Prototype
 
 - *Coverage*:
   - Capabilities discovery via HTTP GET to /capabilities
   - Event publication via HTTP POST to /relay-notification
-  - Support for name-based CBOR encoding (for now) as described in this document
+  - Support for name-based CBOR encoding as described in this document
 
 
 - *Version Compatibility*:
@@ -400,7 +400,7 @@ Addition of the CBOR encoding introduces no specific security exposures or risks
 
 # IANA Considerations
 
-This document requests that IANA include an additional entry in the “Capabilities for HTTPS Notification Receivers” registry, defined in {{!I-D.draft-ietf-netconf-https-notif}}, within the YANG Notifications registry group (as defined in {{RFC3553}}). The following entry is added:
+This document requests that IANA include an additional entry in the “Capabilities for HTTPS Notification Receivers” registry, defined in {{!I-D.draft-ietf-netconf-https-notif}}. The following entry is added:
 
 ~~~
 Record:
